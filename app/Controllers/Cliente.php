@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 use CodeIgniter\RESTful\ResourceController;
-use App\Models;
 
 class Cliente extends ResourceController
 {
@@ -14,9 +13,9 @@ class Cliente extends ResourceController
     {
         //return $this->respond($this->model->findAll());
 
-        $model = new Models\Cliente();
+        $model = $this->model;
 
-        // Pegando os parâmetros "page" e "limit" da URL (com valores padrão)
+        // Aqui pegaqmos os valores dos parâmetros de page e limit da url
         $page  = $this->request->getGet('page') ?? 1;  // Página atual (default: 1)
         $limit = $this->request->getGet('limit') ?? 10; // Itens por página (default: 10)
 
@@ -25,38 +24,39 @@ class Cliente extends ResourceController
 
         // Retorna a resposta em JSON, incluindo informações da paginação
         return $this->respond([
+            'cabecalho'=> [
             'status'  => 200,
-            'message' => 'Lista de produtos paginada',
-            'data'    => $data,
+            'mensagem' => 'Dados Retornados com sucesso',
+            ],
+            'retorno' => [
+                'dados' => $data,
+            ],
             'pagination' => [
                 'current_page' => $page,
                 'per_page'     => $limit,
                 'total'        => $model->pager->getTotal(),
                 'last_page'    => $model->pager->getPageCount(),
-                /*'next_page'    => $model->pager->hasNext() ? $page + 1 : null,
-                'prev_page'    => $model->pager->hasPrevious() ? $page - 1 : null*/
                 'next_page'    => ($model->pager->getCurrentPage() < $model->pager->getPageCount()) ? $model->pager->getCurrentPage() + 1 : null,
                 'prev_page'    => ($model->pager->getCurrentPage() > 1) ? $model->pager->getCurrentPage() - 1 : null
             ]
+            
         ]);
     }
 
     public function show($param = null)
     {
-        // Se não houver parâmetro, retorne erro
+        // Se não houver parâmetro, retornamos erro
         if (empty($param)) {
-            return $this->failNotFound("Nenhum parâmetro foi fornecido.");
+            return $this->failNotFound('Nenhum cliente encontrado com estes parâmetros');
         }
 
-        // Tenta buscar pelo ID primeiro
+        // Primeiro tentamos buscar por id
         $cliente = $this->model->find($param);
 
-        // Se não encontrar pelo ID, busca por qualquer outro campo
+        // Se não encontrar pelo ID, buscamos por qualquer outro campo
         if (!$cliente) {
             $cliente = $this->model->like('nome', $param)
                                    ->orLike('cpf_cnpj', $param)
-                                   //->orWhere('email', $param)
-                                   //->orWhere('telefone', $param)
                                    ->first();
         }
 

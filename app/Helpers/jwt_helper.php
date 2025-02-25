@@ -9,8 +9,8 @@ function generate_jwt($user_id, $email)
 {
 
     $payload = [
-        'iat' => time(), // Tempo em que o token foi gerado
-        'exp' => time() + 3600, // Expiração do token (1 hora)
+        'iat' => time(), 
+        'exp' => time() + 3600,
         'user_id' => $user_id,
         'email' => $email
     ];
