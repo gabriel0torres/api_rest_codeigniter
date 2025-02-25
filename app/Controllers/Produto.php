@@ -4,17 +4,17 @@ namespace App\Controllers;
 use CodeIgniter\RESTful\ResourceController;
 use App\Models;
 
-class Cliente extends ResourceController
+class Produto extends ResourceController
 {
-    protected $modelName = 'App\Models\Cliente';
+    protected $modelName = 'App\Models\Produto';
     protected $format    = 'json';
 
-    // LISTAR TODOS OS CLIENTES (GET)
+    // LISTAR TODOS OS PRODUTOS (GET)
     public function index()
     {
         //return $this->respond($this->model->findAll());
 
-        $model = new Models\Cliente();
+        $model = new Models\Produto();
 
         // Pegando os parâmetros "page" e "limit" da URL (com valores padrão)
         $page  = $this->request->getGet('page') ?? 1;  // Página atual (default: 1)
@@ -49,54 +49,54 @@ class Cliente extends ResourceController
         }
 
         // Tenta buscar pelo ID primeiro
-        $cliente = $this->model->find($param);
+        $produto = $this->model->find($param);
 
         // Se não encontrar pelo ID, busca por qualquer outro campo
-        if (!$cliente) {
-            $cliente = $this->model->like('nome', $param)
-                                   ->orLike('cpf_cnpj', $param)
-                                   //->orWhere('email', $param)
-                                   //->orWhere('telefone', $param)
+        if (!$produto) {
+            $produto = $this->model->like('nome', $param)
+                                   ->orLike('descricao', $param)
+                                   ->orLike('preco', $param)
+                                   ->orLike('estoque', $param)
                                    ->first();
         }
 
-        if (!$cliente) {
-            return $this->failNotFound("Nenhum cliente encontrado com o valor: $param");
+        if (!$produto) {
+            return $this->failNotFound("Nenhum produto encontrado com o valor: $param");
         }
 
-        return $this->respond($cliente, 200);
+        return $this->respond($produto, 200);
     }
 
-    // CRIAR UM NOVO CLIENTE (POST)
+    // CRIAR UM NOVO PRODUTO (POST)
     public function create()
     {
         $data = $this->request->getJSON(true); // Recebe JSON como array associativo
         if (!$this->model->insert($data)) {
             return $this->failValidationErrors($this->model->errors());
         }
-        return $this->respondCreated(['message' => 'Cliente inserido com sucesso.']);
+        return $this->respondCreated(['message' => 'Produto inserido com sucesso.']);
     }
     
 
-    // ATUALIZAR UM CLIENTE (PUT)
+    // ATUALIZAR UM PRODUTO (PUT)
     public function update($id = null)
     {
         $data = $this->request->getJSON(true);
         if (!$this->model->find($id)) {
-            return $this->failNotFound('Cliente não encontrado.');
+            return $this->failNotFound('Produto não encontrado.');
         }
         $this->model->update($id, $data);
-        return $this->respond(['message' => 'Cliente atualizado com sucesso.']);
+        return $this->respond(['message' => 'Produto atualizado com sucesso.']);
     }
 
 
-    // DELETAR UM CLIENTE (DELETE)
+    // DELETAR UM PRODUTO (DELETE)
     public function delete($id = null)
     {
         if (!$this->model->find($id)) {
-            return $this->failNotFound('Cliente não encontrado.');
+            return $this->failNotFound('Produto não encontrado.');
         }
         $this->model->delete($id);
-        return $this->respondDeleted(['message' => 'Cliente deletado com sucesso.']);
+        return $this->respondDeleted(['message' => 'Produto deletado com sucesso.']);
     }
 }

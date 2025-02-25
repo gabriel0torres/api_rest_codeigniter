@@ -13,6 +13,8 @@ $routes->post('auth/login', 'AuthController::login');
 $routes->group('', ['filter' => 'auth'], function ($routes) {
     //$routes->get('produtos', 'ProdutoController::index');
     $routes->resource('cliente');
+    $routes->resource('produto');
+    $routes->resource('pedidos');
 });
 
 
