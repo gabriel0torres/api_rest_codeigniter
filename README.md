@@ -1,4 +1,4 @@
-# API Rest para cadastro de de pedidos de compra
+# API Rest para cadastro de pedidos de compra
 
 ## O que a API faz?
 
@@ -124,6 +124,27 @@ de paginação de permite entregar somente 10 clientes por página, o retorno es
 }
 ```
 
+Lembrando que a API também conta com um sistema de busca por parametro, basta passar na url o valor que esteja procurando entre os registro que a API já deve
+retornar todos os registro que contenham em algum de seus campos o valor passado, exemplo: ```http://localhost/api_rest_codeigniter/public/cliente/joao```.
+
+o seguinte retorno deve ser esperado:
+
+```
+{
+    "cabecalho": {
+        "status": 200,
+        "mensagem": "Dados Retornados com sucesso"
+    },
+    "retorno": {
+        "dados": {
+            "id": "1",
+            "nome": "João Silva",
+            "cpf_cnpj": "123.456.789-00"
+        }
+    }
+}
+```
+
 2.2 Incluindo (POST)
 
 utilizando a seguinte url ```localhost/api_rest_codeigniter/public/cliente```, conseguimos incluir um novo registro de cliente passando o seguinte código de exemplo no corpo
@@ -158,10 +179,12 @@ podermos atualizar de acordo com o id do cliente, devemos passar no corpo da req
 
 o seguinte retorno deve ser esperado:
 
+```
 {
     "status": 200,
     "mensagem": "Cliente atualizado com sucesso."
 }
+```
 
 2.4 Excluindo (DELETE)
 
@@ -177,17 +200,244 @@ o seguinte retorno deve ser esperado:
 }
 ```
 
+### 2. Produtos
 
+ENPOINT BASE: 
 
+```http://localhost/api_rest_codeigniter/public/produto```
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
+2.1 Listando (GET)
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+utilizando a seguinte url ```http://localhost/api_rest_codeigniter/public/produto``` conseguimos listar os nossos produtos, lembrando que a API conta com um sistema
+de paginação de permite entregar somente 10 produtos por página, o retorno esperado deve ser:
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+```
+{
+    "cabecalho": {
+        "status": 200,
+        "mensagem": "Dados Retornados com sucesso"
+    },
+    "retorno": {
+        "dados": [
+            {
+                "id": "1",
+                "nome": "Notebook Dell",
+                "descricao": "Notebook com 16GB RAM e SSD 512GB",
+                "preco": "4500.00",
+                "estoque": "10"
+            },
+        ]
+    },
+    "pagination": {
+        "current_page": 1,
+        "per_page": 10,
+        "total": 23,
+        "last_page": 3,
+        "next_page": 2,
+        "prev_page": null
+    }
+}
+```
+
+Lembrando que a API também conta com um sistema de busca por parametro, basta passar na url o valor que esteja procurando entre os registro que a API já deve
+retornar todos os registro que contenham em algum de seus campos o valor passado, exemplo: ```http://localhost/api_rest_codeigniter/public/produto/notebook```.
+
+o seguinte retorno deve ser esperado:
+
+```
+{
+    "cabecalho": {
+        "status": 200,
+        "mensagem": "Dados Retornados com sucesso"
+    },
+    "retorno": {
+        "dados": {
+            "id": "1",
+            "nome": "Notebook Dell",
+            "descricao": "Notebook com 16GB RAM e SSD 512GB",
+            "preco": "4500.00",
+            "estoque": "10"
+        }
+    }
+}
+```
+
+2.2 Incluindo (POST)
+
+utilizando a seguinte url ```http://localhost/api_rest_codeigniter/public/produto```, conseguimos incluir um novo registro de produto passando o seguinte código de exemplo
+no corpo da requisição: 
+
+```
+{
+    "nome": "teste",
+    "descricao": "coloque a descricao aqui",
+    "preco": 2.50,
+    "estoque": 3
+}
+```
+
+o seguinte retorno deve ser esperado:
+
+```
+{
+    "status": 201,
+    "mensagem": "Produto inserido com sucesso."
+}
+```
+
+2.3 Atualizando (PUT)
+
+utilizando a seguinte url ```http://localhost/api_rest_codeigniter/public/produto/1``` podemos atualizar um registro, lembrando que o id do produto deve ser colocado no lugar do 0 para podermos atualizar de acordo com o id do produto, devemos passar no corpo da requisição o seguinte código contendo os campos e os valores que devem ser atualizados:
+
+```
+{
+    "nome": "teste 2",
+    "descricao": "coloque a descricao aqui",
+    "preco": 2.50,
+    "estoque": 3
+}
+```
+
+o seguinte retorno deve ser esperado:
+
+```
+{
+    "status": 200,
+    "mensagem": "Produto atualizado com sucesso."
+}
+```
+
+2.4 Excluindo (DELETE)
+
+utilizando a seguinte url ```http://localhost/api_rest_codeigniter/public/produto/2``` podemos excluir um registro, lembrando que o id do produto deve ser colocado
+no lugar do 0 para podermos excluir de acordo com o id do produto.
+
+o seguinte retorno deve ser esperado:
+
+```
+{
+    "status": 200,
+    "mensagem": "Produto deletado com sucesso."
+}
+```
+
+### 2. Pedidos
+
+ENPOINT BASE: 
+
+```http://localhost/api_rest_codeigniter/public/pedido```
+
+2.1 Listando (GET)
+
+utilizando a seguinte url ```http://localhost/api_rest_codeigniter/public/pedido``` conseguimos listar os nossos pedidos, lembrando que a API conta com um sistema
+de paginação de permite entregar somente 10 pedidos por página, o retorno esperado deve ser:
+
+```
+{
+    "cabecalho": {
+        "status": 200,
+        "mensagem": "Dados Retornados com sucesso"
+    },
+    "retorno": {
+        "dados": [
+            {
+                "id": "1",
+                "idCliente": "1",
+                "idProduto": "3",
+                "quantidade": "2",
+                "data_pedido": "2025-02-26 15:32:51",
+                "status": "Pago"
+            },
+        ]
+    },
+    "pagination": {
+        "current_page": 1,
+        "per_page": 10,
+        "total": 23,
+        "last_page": 3,
+        "next_page": 2,
+        "prev_page": null
+    }
+}
+```
+
+Lembrando que a API também conta com um sistema de busca por parametro, basta passar na url o valor que esteja procurando entre os registro que a API já deve
+retornar todos os registro que contenham em algum de seus campos o valor passado, exemplo: ```localhost/api_rest_codeigniter/public/pedido/Pago```.
+
+o seguinte retorno deve ser esperado:
+
+```
+{
+    "cabecalho": {
+        "status": 200,
+        "mensagem": "Dados Retornados com sucesso"
+    },
+    "retorno": {
+        "dados": {
+            "id": "1",
+            "idCliente": "1",
+            "idProduto": "3",
+            "quantidade": "2",
+            "data_pedido": "2025-02-26 15:32:51",
+            "status": "Pago"
+        }
+    }
+}
+```
+
+2.2 Incluindo (POST)
+
+utilizando a seguinte url ```http://localhost/api_rest_codeigniter/public/pedido```, conseguimos incluir um novo registro de pedido passando o seguinte código de exemplo
+no corpo da requisição: 
+
+```
+{
+    "idCliente": 10,
+    "idProduto": 1,
+    "quantidade": 1,
+    "status": "Em aberto"
+}
+```
+
+o seguinte retorno deve ser esperado:
+
+```
+{
+    "status": 201,
+    "mensagem": "Pedido inserido com sucesso."
+}
+```
+
+2.3 Atualizando (PUT)
+
+utilizando a seguinte url ```http://localhost/api_rest_codeigniter/public/pedido/1``` podemos atualizar um registro, lembrando que o id do pedido deve ser colocado no lugar do 0 para podermos atualizar de acordo com o id do pedido, devemos passar no corpo da requisição o seguinte código contendo os campos e os valores que devem ser atualizados:
+
+```
+{
+    "status": "Pago"
+}
+```
+
+o seguinte retorno deve ser esperado:
+
+```
+{
+    "status": 200,
+    "mensagem": "Pedido atualizado com sucesso."
+}
+```
+
+2.4 Excluindo (DELETE)
+
+utilizando a seguinte url ```http://localhost/api_rest_codeigniter/public/pedido/3``` podemos excluir um registro, lembrando que o id do pedido deve ser colocado
+no lugar do 0 para podermos excluir de acordo com o id do pedido.
+
+o seguinte retorno deve ser esperado:
+
+```
+{
+    "status": 200,
+    "message": "Pedido deletado com sucesso."
+}
+```
+

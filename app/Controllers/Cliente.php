@@ -11,11 +11,10 @@ class Cliente extends ResourceController
     // LISTAR TODOS OS CLIENTES (GET)
     public function index()
     {
-        //return $this->respond($this->model->findAll());
 
         $model = $this->model;
 
-        // Aqui pegaqmos os valores dos parâmetros de page e limit da url
+        // Aqui pegamos os valores dos parâmetros de page e limit da url
         $page  = $this->request->getGet('page') ?? 1;  // Página atual (default: 1)
         $limit = $this->request->getGet('limit') ?? 10; // Itens por página (default: 10)
 
@@ -64,13 +63,21 @@ class Cliente extends ResourceController
             return $this->failNotFound("Nenhum cliente encontrado com o valor: $param");
         }
 
-        return $this->respond($cliente, 200);
+        return $this->respond([
+            'cabecalho'=> [
+                'status'  => 200,
+                'mensagem' => 'Dados Retornados com sucesso',
+            ],
+            'retorno' => [
+                'dados' => $cliente,
+            ],
+        ], 200);
     }
 
     // CRIAR UM NOVO CLIENTE (POST)
     public function create()
     {
-        $data = $this->request->getJSON(true); // Recebe JSON como array associativo
+        $data = $this->request->getJSON(true);
         if (!$this->model->insert($data)) {
             return $this->failValidationErrors($this->model->errors());
         }

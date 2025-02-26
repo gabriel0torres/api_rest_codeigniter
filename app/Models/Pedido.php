@@ -7,5 +7,5 @@ class Pedido extends Model
 {
     protected $table = 'pedidos';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['quantidade', 'status'];
+    protected $allowedFields = ['idCliente','idProduto','quantidade', 'status'];
 }

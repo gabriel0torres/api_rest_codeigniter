@@ -12,9 +12,8 @@ class Pedido extends ResourceController
     // LISTAR TODOS OS PEDIDO (GET)
     public function index()
     {
-        //return $this->respond($this->model->findAll());
 
-        $model = new Models\Pedido();
+        $model = $this->model;
 
         // Pegando os parâmetros "page" e "limit" da URL (com valores padrão)
         $page  = $this->request->getGet('page') ?? 1;  // Página atual (default: 1)
@@ -25,9 +24,13 @@ class Pedido extends ResourceController
 
         // Retorna a resposta em JSON, incluindo informações da paginação
         return $this->respond([
-            'status'  => 200,
-            'message' => 'Lista de pedidos paginada',
-            'data'    => $data,
+            'cabecalho' => [
+                'status'  => 200,
+                'mensagem' => 'Dados Retornados com sucesso',
+            ],
+            'retorno' => [
+                'data'    => $data,
+            ],
             'pagination' => [
                 'current_page' => $page,
                 'per_page'     => $limit,
@@ -37,6 +40,8 @@ class Pedido extends ResourceController
                 'prev_page'    => ($model->pager->getCurrentPage() > 1) ? $model->pager->getCurrentPage() - 1 : null
             ]
         ]);
+
+        
     }
 
     public function show($param = null)
@@ -63,17 +68,27 @@ class Pedido extends ResourceController
             return $this->failNotFound("Nenhum pedido encontrado com o valor: $param");
         }
 
-        return $this->respond($pedido, 200);
+        return $this->respond([
+            'cabecalho'=> [
+                'status'  => 200,
+                'mensagem' => 'Dados Retornados com sucesso',
+            ],
+            'retorno' => [
+                'dados' => $pedido,
+            ],
+        ], 200);
     }
 
     // CRIAR UM NOVO PEDIDO (POST)
     public function create()
     {
-        $data = $this->request->getJSON(true); // Recebe JSON como array associativo
+        $data = $this->request->getJSON(true);
         if (!$this->model->insert($data)) {
             return $this->failValidationErrors($this->model->errors());
         }
-        return $this->respondCreated(['message' => 'Pedido inserido com sucesso.']);
+        return $this->respondCreated([
+            'status' => 201,
+            'mensagem' => 'Pedido inserido com sucesso.']);
     }
     
 
@@ -85,7 +100,9 @@ class Pedido extends ResourceController
             return $this->failNotFound('Pedido não encontrado.');
         }
         $this->model->update($id, $data);
-        return $this->respond(['message' => 'Pedido atualizado com sucesso.']);
+        return $this->respond([
+            'status' => 200,
+            'mensagem' => 'Pedido atualizado com sucesso.']);
     }
 
 
@@ -96,6 +113,8 @@ class Pedido extends ResourceController
             return $this->failNotFound('Pedido não encontrado.');
         }
         $this->model->delete($id);
-        return $this->respondDeleted(['message' => 'Pedido deletado com sucesso.']);
+        return $this->respondDeleted([
+            'status' => 200,
+            'message' => 'Pedido deletado com sucesso.']);
     }
 }

@@ -12,9 +12,8 @@ class Produto extends ResourceController
     // LISTAR TODOS OS PRODUTOS (GET)
     public function index()
     {
-        //return $this->respond($this->model->findAll());
 
-        $model = new Models\Produto();
+        $model = $this->model;
 
         // Pegando os parâmetros "page" e "limit" da URL (com valores padrão)
         $page  = $this->request->getGet('page') ?? 1;  // Página atual (default: 1)
@@ -25,16 +24,18 @@ class Produto extends ResourceController
 
         // Retorna a resposta em JSON, incluindo informações da paginação
         return $this->respond([
-            'status'  => 200,
-            'message' => 'Lista de produtos paginada',
-            'data'    => $data,
+            'cabecalho' => [
+                'status'  => 200,
+                'mensagem' => 'Dados retornados com sucesso',
+            ],
+            'retorno' => [
+                'dados'    => $data,
+            ],
             'pagination' => [
                 'current_page' => $page,
                 'per_page'     => $limit,
                 'total'        => $model->pager->getTotal(),
                 'last_page'    => $model->pager->getPageCount(),
-                /*'next_page'    => $model->pager->hasNext() ? $page + 1 : null,
-                'prev_page'    => $model->pager->hasPrevious() ? $page - 1 : null*/
                 'next_page'    => ($model->pager->getCurrentPage() < $model->pager->getPageCount()) ? $model->pager->getCurrentPage() + 1 : null,
                 'prev_page'    => ($model->pager->getCurrentPage() > 1) ? $model->pager->getCurrentPage() - 1 : null
             ]
@@ -64,17 +65,27 @@ class Produto extends ResourceController
             return $this->failNotFound("Nenhum produto encontrado com o valor: $param");
         }
 
-        return $this->respond($produto, 200);
+        return $this->respond([
+            'cabecalho'=> [
+                'status'  => 200,
+                'mensagem' => 'Dados Retornados com sucesso',
+            ],
+            'retorno' => [
+                'dados' => $produto,
+            ],
+        ], 200);
     }
 
     // CRIAR UM NOVO PRODUTO (POST)
     public function create()
     {
-        $data = $this->request->getJSON(true); // Recebe JSON como array associativo
+        $data = $this->request->getJSON(true);
         if (!$this->model->insert($data)) {
             return $this->failValidationErrors($this->model->errors());
         }
-        return $this->respondCreated(['message' => 'Produto inserido com sucesso.']);
+        return $this->respondCreated([
+            'status' => 201,
+            'mensagem' => 'Produto inserido com sucesso.']);
     }
     
 
@@ -86,7 +97,9 @@ class Produto extends ResourceController
             return $this->failNotFound('Produto não encontrado.');
         }
         $this->model->update($id, $data);
-        return $this->respond(['message' => 'Produto atualizado com sucesso.']);
+        return $this->respond([
+            'status' => 200,
+            'mensagem' => 'Produto atualizado com sucesso.']);
     }
 
 
@@ -97,6 +110,8 @@ class Produto extends ResourceController
             return $this->failNotFound('Produto não encontrado.');
         }
         $this->model->delete($id);
-        return $this->respondDeleted(['message' => 'Produto deletado com sucesso.']);
+        return $this->respondDeleted([
+            'status' => 200,
+            'mensagem' => 'Produto deletado com sucesso.']);
     }
 }

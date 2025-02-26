@@ -114,8 +114,8 @@ class Inicial extends Migration
             'status' => ['type' => 'ENUM', 'constraint' => ['Em aberto', 'Pago', 'Cancelado'], 'default' => 'Em aberto'],
         ])
         ->addPrimaryKey('id')
-        ->addForeignKey('idCliente', 'clientes', 'id', 'CASCADE', 'CASCADE')
-        ->addForeignKey('idProduto', 'produtos', 'id', 'CASCADE', 'CASCADE')
+        ->addForeignKey('idCliente', 'clientes', 'id')
+        ->addForeignKey('idProduto', 'produtos', 'id')
         ->createTable('pedidos');
 
         //INSERT NA TABELA DE PEDIDOS
