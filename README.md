@@ -37,9 +37,7 @@ contendo seus respectivos valores do seu banco de dados:
 *database.default.DBDriver = MySQLi* <br>
 *database.default.port = 3306* <br>
 
-4. Para a criação das tabelas fundamentais e inserção de seus dados, é disponibilizado um arquivo chamado `data-migration`
-no diretório raiz contendo o código para um migration que criaremos a seguir, e executaremos o mesmo para a inserção dos dados,
-siga as instruções:
+4. Para a criação das tabelas fundamentais e inserção de seus dados, sera disponibilizado um arquivo `data.sql` contendo todos os comandos para inserção via banco de dados se preferir, e também é disponibilizado um arquivo chamado `data-migration` no diretório raiz contendo o código para um migration que criaremos a seguir, e executaremos o mesmo para a inserção dos dados, siga as instruções:
 
 * Crie um migration chamado Inicial utilizando o comando
 
@@ -200,13 +198,13 @@ o seguinte retorno deve ser esperado:
 }
 ```
 
-### 2. Produtos
+### 3. Produtos
 
 ENPOINT BASE: 
 
 ```http://localhost/api_rest_codeigniter/public/produto```
 
-2.1 Listando (GET)
+3.1 Listando (GET)
 
 utilizando a seguinte url ```http://localhost/api_rest_codeigniter/public/produto``` conseguimos listar os nossos produtos, lembrando que a API conta com um sistema
 de paginação de permite entregar somente 10 produtos por página, o retorno esperado deve ser:
@@ -262,7 +260,7 @@ o seguinte retorno deve ser esperado:
 }
 ```
 
-2.2 Incluindo (POST)
+3.2 Incluindo (POST)
 
 utilizando a seguinte url ```http://localhost/api_rest_codeigniter/public/produto```, conseguimos incluir um novo registro de produto passando o seguinte código de exemplo
 no corpo da requisição: 
@@ -285,7 +283,7 @@ o seguinte retorno deve ser esperado:
 }
 ```
 
-2.3 Atualizando (PUT)
+3.3 Atualizando (PUT)
 
 utilizando a seguinte url ```http://localhost/api_rest_codeigniter/public/produto/1``` podemos atualizar um registro, lembrando que o id do produto deve ser colocado no lugar do 0 para podermos atualizar de acordo com o id do produto, devemos passar no corpo da requisição o seguinte código contendo os campos e os valores que devem ser atualizados:
 
@@ -307,7 +305,7 @@ o seguinte retorno deve ser esperado:
 }
 ```
 
-2.4 Excluindo (DELETE)
+3.4 Excluindo (DELETE)
 
 utilizando a seguinte url ```http://localhost/api_rest_codeigniter/public/produto/2``` podemos excluir um registro, lembrando que o id do produto deve ser colocado
 no lugar do 0 para podermos excluir de acordo com o id do produto.
@@ -321,13 +319,13 @@ o seguinte retorno deve ser esperado:
 }
 ```
 
-### 2. Pedidos
+### 4. Pedidos
 
 ENPOINT BASE: 
 
 ```http://localhost/api_rest_codeigniter/public/pedido```
 
-2.1 Listando (GET)
+4.1 Listando (GET)
 
 utilizando a seguinte url ```http://localhost/api_rest_codeigniter/public/pedido``` conseguimos listar os nossos pedidos, lembrando que a API conta com um sistema
 de paginação de permite entregar somente 10 pedidos por página, o retorno esperado deve ser:
@@ -385,7 +383,7 @@ o seguinte retorno deve ser esperado:
 }
 ```
 
-2.2 Incluindo (POST)
+4.2 Incluindo (POST)
 
 utilizando a seguinte url ```http://localhost/api_rest_codeigniter/public/pedido```, conseguimos incluir um novo registro de pedido passando o seguinte código de exemplo
 no corpo da requisição: 
@@ -408,7 +406,7 @@ o seguinte retorno deve ser esperado:
 }
 ```
 
-2.3 Atualizando (PUT)
+4.3 Atualizando (PUT)
 
 utilizando a seguinte url ```http://localhost/api_rest_codeigniter/public/pedido/1``` podemos atualizar um registro, lembrando que o id do pedido deve ser colocado no lugar do 0 para podermos atualizar de acordo com o id do pedido, devemos passar no corpo da requisição o seguinte código contendo os campos e os valores que devem ser atualizados:
 
@@ -427,7 +425,7 @@ o seguinte retorno deve ser esperado:
 }
 ```
 
-2.4 Excluindo (DELETE)
+4.4 Excluindo (DELETE)
 
 utilizando a seguinte url ```http://localhost/api_rest_codeigniter/public/pedido/3``` podemos excluir um registro, lembrando que o id do pedido deve ser colocado
 no lugar do 0 para podermos excluir de acordo com o id do pedido.
@@ -440,4 +438,8 @@ o seguinte retorno deve ser esperado:
     "message": "Pedido deletado com sucesso."
 }
 ```
+
+## Suporte
+
+Para suporte, entre em contato via email: gabrielmksm1900@outlook.com
 
