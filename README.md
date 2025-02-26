@@ -17,7 +17,10 @@ More information can be found at the [official site](https://codeigniter.com).
 ## Instalação
 
 1. Caso tenha instalado também o Git em sua máquina, você pode rodar diretamente o comando 
-`git clone https://github.com/gabriel0torres/api_rest_codeigniter.git` para clonar diretamente o repositório, caso não tenha,
+
+`git clone https://github.com/gabriel0torres/api_rest_codeigniter.git` 
+
+para clonar diretamente o repositório, caso não tenha,
 copie os arquivos do diretório e cole em um local de sua preferência.
 
 2. Nesta API é necessário a instalação de uma biblioteca para a validação do token, instale-a com o comando:
@@ -28,25 +31,26 @@ copie os arquivos do diretório e cole em um local de sua preferência.
 contendo seus respectivos valores do seu banco de dados:
 (É necessário que o database já esteja previamente criado)
 
-*CI_ENVIRONMENT = development*
-*database.default.hostname = localhost*
-*database.default.database = teste*
-*database.default.username = root*
-*database.default.password =*
-*database.default.DBDriver = MySQLi*
-*database.default.port = 3306*
+*CI_ENVIRONMENT = development* <br>
+*database.default.hostname = localhost* <br>
+*database.default.database = teste* <br>
+*database.default.username = root* <br>
+*database.default.password =* <br>
+*database.default.DBDriver = MySQLi* <br>
+*database.default.port = 3306* <br>
 
 4. Para a criação das tabelas fundamentais e inserção de seus dados, é disponibilizado um arquivo chamado `data-migration`
 no diretório raiz contendo o código para um migration que criaremos a seguir, e executaremos o mesmo para a inserção dos dados,
 siga as instruções:
 
 * Crie um migration chamado Inicial utilizando o comando
+
 `php spark make:migration Inicial`
 
 * Apague todo o conteúdo do arquivo migration criado, depois copie e cole todo o conteúdo do `data-migration` no arquivo
 migration criado.
 
-* Por último, rode a migration utilizando o comando `php spark migrate`
+* Por último, rode a migration utilizando o comando `php spark migrate` 
 
 - [x] Nossa API já está pronta para uso !
 
@@ -69,6 +73,27 @@ passando o seguinte conteúdo no body da requisição:
     "senha": "1234"
 }
 ```
+
+o retorno esperado deve ser:
+
+```
+{
+    "status": 200,
+    "mensagem": "Login bem-sucedido!",
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3NDA1ODU0NzQsImV4cCI6MTc0MDU4OTA3NCwidXNlcl9pZCI6IjEiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSJ9.4Z8VsHobLL9l9q69vYLjT2Djz04PSLditu2lYlI0qv4"
+}
+```
+(O token irá variar a cada requisição feita)
+
+Com o token gerado, ele deverá ser incorporado a cada requisição da API no parâmetro Authorization dentro do header.
+
+(Obs: este token tem duração de 1 hora, após a expiração, deve ser gerado um novo)
+
+2. Clientes
+
+ENPOINT BASE: ```http://localhost/api_rest_codeigniter/public/cliente```
+
+
 
 This repository holds a composer-installable app starter.
 It has been built from the

@@ -25,7 +25,8 @@ class AuthController extends ResourceController
         $token = generate_jwt($user['id'], $user['email']);
 
         return $this->respond([
-            'message' => 'Login bem-sucedido!',
+            'status' => 200,
+            'mensagem' => 'Login bem-sucedido!',
             'token' => $token
         ]);
     }
