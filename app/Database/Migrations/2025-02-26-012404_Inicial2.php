@@ -40,98 +40,29 @@ class Inicial extends Migration
 
         //INSERT DOS CLIENTES
         $clientes = [
-            [
-                'nome'        => 'João Silva',
-                'cpf_cnpj'   => '123.456.789-00',
-            ],
-            [
-                'nome'        => 'Empresa XYZ Ltda',
-                'cpf_cnpj'   => '12.345.678/0001-90',
-            ],
-            [
-                'nome'        => 'Maria Oliveira',
-                'cpf_cnpj'   => '987.654.321-00',
-            ],
-            [
-                'nome'        => 'Comércio ABC S.A.',
-                'cpf_cnpj'   => '98.765.432/0001-10',
-            ],
-            [
-                'nome'        => 'Carlos Souza',
-                'cpf_cnpj'   => '456.123.789-00',
-            ],
-            [
-                'nome'        => 'Indústria Delta Ltda',
-                'cpf_cnpj'   => '45.612.378/0001-55',
-            ],
-            [
-                'nome'        => 'Ana Pereira',
-                'cpf_cnpj'   => '321.987.654-00',
-            ],
-            [
-                'nome'        => 'Supermercado Global S.A.',
-                'cpf_cnpj'   => '32.198.765/0001-22',
-            ],
-            [
-                'nome'        => 'Pedro Santos',
-                'cpf_cnpj'   => '741.852.963-00',
-            ],
-            [
-                'nome'        => 'Tech Solutions Ltda',
-                'cpf_cnpj'   => '741.852.963-00',
-            ],
-            [
-                'nome'        => 'Tech Solutions Ltda',
-                'cpf_cnpj'   => '74.185.296/0001-33',
-            ],
-            [
-                'nome'        => 'Mariana Costa',
-                'cpf_cnpj'   => '369.258.147-00',
-            ],
-            [
-                'nome'        => 'Construtora Beta S.A.',
-                'cpf_cnpj'   => '36.925.814/0001-44',
-            ],
-            [
-                'nome'        => 'Ricardo Almeida',
-                'cpf_cnpj'   => '852.963.741-00',
-            ],
-            [
-                'nome'        => 'Farmácia Saúde Ltda',
-                'cpf_cnpj'   => '85.296.374/0001-66',
-            ],
-            [
-                'nome'        => 'Fernanda Lima',
-                'cpf_cnpj'   => '147.258.369-00',
-            ],
-            [
-                'nome'        => 'Consultoria Financeira XYZ',
-                'cpf_cnpj'   => '14.725.836/0001-77',
-            ],
-            [
-                'nome'        => 'Gustavo Nunes',
-                'cpf_cnpj'   => '258.369.147-00',
-            ],
-            [
-                'nome'        => 'Transportadora Rápido Ltda',
-                'cpf_cnpj'   => '25.836.914/0001-88',
-            ],
-            [
-                'nome'        => 'Juliana Ferreira',
-                'cpf_cnpj'   => '963.741.852-00',
-            ],
-            [
-                'nome'        => 'Auto Peças Mecânica S.A.',
-                'cpf_cnpj'   => '96.374.185/0001-99',
-            ],
-            [
-                'nome'        => 'Bruno Rocha',
-                'cpf_cnpj'   => '753.951.852-00',
-            ],
-            [
-                'nome'        => 'Distribuidora Central Ltda',
-                'cpf_cnpj'   => '75.395.185/0001-11',
-            ],
+            ['nome' => 'João Silva', 'cpf_cnpj' => '123.456.789-00',],
+            ['nome' => 'Empresa XYZ Ltda', 'cpf_cnpj' => '12.345.678/0001-90',],
+            ['nome' => 'Maria Oliveira', 'cpf_cnpj' => '987.654.321-00',],
+            ['nome' => 'Comércio ABC S.A.','cpf_cnpj' => '98.765.432/0001-10',],
+            ['nome' => 'Carlos Souza','cpf_cnpj' => '456.123.789-00',],
+            ['nome' => 'Indústria Delta Ltda','cpf_cnpj' => '45.612.378/0001-55',],
+            ['nome' => 'Ana Pereira','cpf_cnpj' => '321.987.654-00',],
+            ['nome' => 'Supermercado Global S.A.','cpf_cnpj' => '32.198.765/0001-22',],
+            ['nome' => 'Pedro Santos','cpf_cnpj' => '741.852.963-00',],
+            ['nome' => 'Tech Solutions Ltda','cpf_cnpj' => '741.852.963-00',],
+            ['nome' => 'Tech Solutions Ltda','cpf_cnpj' => '74.185.296/0001-33',],
+            ['nome' => 'Mariana Costa','cpf_cnpj' => '369.258.147-00',],
+            ['nome' => 'Construtora Beta S.A.','cpf_cnpj' => '36.925.814/0001-44',],
+            ['nome' => 'Ricardo Almeida','cpf_cnpj' => '852.963.741-00',],
+            ['nome' => 'Farmácia Saúde Ltda','cpf_cnpj' => '85.296.374/0001-66',],
+            ['nome' => 'Fernanda Lima','cpf_cnpj' => '147.258.369-00',],
+            ['nome' => 'Consultoria Financeira XYZ','cpf_cnpj' => '14.725.836/0001-77',],
+            ['nome' => 'Gustavo Nunes','cpf_cnpj' => '258.369.147-00',],
+            ['nome' => 'Transportadora Rápido Ltda','cpf_cnpj' => '25.836.914/0001-88',],
+            ['nome' => 'Juliana Ferreira','cpf_cnpj' => '963.741.852-00',],
+            ['nome' => 'Auto Peças Mecânica S.A.','cpf_cnpj' => '96.374.185/0001-99',],
+            ['nome' => 'Bruno Rocha','cpf_cnpj' => '753.951.852-00',],
+            ['nome' => 'Distribuidora Central Ltda','cpf_cnpj' => '75.395.185/0001-11',],
         ];
         $db->table('clientes')->insertBatch($clientes);
 
@@ -189,11 +120,11 @@ class Inicial extends Migration
 
         //INSERT NA TABELA DE PEDIDOS
         $pedidos = [
-            ['idCliente' => 1, 'idProduto' => 3,  'quantidade' => 2,  'status' => 'pendente'],  
-            ['idCliente' => 2, 'idProduto' => 5,  'quantidade' => 1,  'status' => 'processando'], 
-            ['idCliente' => 3, 'idProduto' => 7,  'quantidade' => 1,  'status' => 'enviado'], 
-            ['idCliente' => 4, 'idProduto' => 10, 'quantidade' =>  4, 'status' =>  'entregue'],
-            ['idCliente' => 5, 'idProduto' => 12, 'quantidade' =>  1, 'status' =>  'cancelado']
+            ['idCliente' => 1, 'idProduto' => 3,  'quantidade' => 2,  'status' => 'Em aberto'],  
+            ['idCliente' => 2, 'idProduto' => 5,  'quantidade' => 1,  'status' => 'Em aberto'], 
+            ['idCliente' => 3, 'idProduto' => 7,  'quantidade' => 1,  'status' => 'Pago'], 
+            ['idCliente' => 4, 'idProduto' => 10, 'quantidade' =>  4, 'status' =>  'Pago'],
+            ['idCliente' => 5, 'idProduto' => 12, 'quantidade' =>  1, 'status' =>  'Cancelado']
         ];
         $db->table('pedidos')->insertBatch($pedidos);
         
