@@ -1,0 +1,209 @@
+<?php
+
+namespace App\Database\Migrations;
+
+use CodeIgniter\Database\Migration;
+
+class Inicial extends Migration
+{
+    public function up()
+    {
+        $db = \Config\Database::connect();
+
+        //CRIAMOS A TABELA DE USUARIOS
+        $this->forge->addField([
+            'id' => ['type' => 'INT','auto_increment' => true],
+            'email' => ['type' => 'VARCHAR', 'constraint' => 50],
+            'senha' => ['type' => 'VARCHAR', 'constraint' => 100],
+        ])
+        ->addPrimaryKey('id')
+        ->createTable('usuarios');
+
+        //INSERT DO USUARIO
+        $usuarios = [
+            [
+                'email' => 'admin@admin.com',
+                'senha' => '$2y$10$4EiC1Q6Pccj0cl9t5s3AmekETM0W7F51GYbM39ScG5jd1to0pxdwu'
+            ]
+            ];
+        $db->table('usuarios')->insertBatch($usuarios);
+
+        //CRIAMOS A TABELA DE CLIENTES
+        $this->forge->addField([
+            'id' => ['type' => 'INT','auto_increment' => true],
+            'nome' => ['type' => 'VARCHAR', 'constraint' => 100],
+            'cpf_cnpj' => ['type' => 'VARCHAR', 'constraint' => 18],
+        ])
+        ->addPrimaryKey('id')
+        ->createTable('clientes');
+
+
+        //INSERT DOS CLIENTES
+        $clientes = [
+            [
+                'nome'        => 'João Silva',
+                'cpf_cnpj'   => '123.456.789-00',
+            ],
+            [
+                'nome'        => 'Empresa XYZ Ltda',
+                'cpf_cnpj'   => '12.345.678/0001-90',
+            ],
+            [
+                'nome'        => 'Maria Oliveira',
+                'cpf_cnpj'   => '987.654.321-00',
+            ],
+            [
+                'nome'        => 'Comércio ABC S.A.',
+                'cpf_cnpj'   => '98.765.432/0001-10',
+            ],
+            [
+                'nome'        => 'Carlos Souza',
+                'cpf_cnpj'   => '456.123.789-00',
+            ],
+            [
+                'nome'        => 'Indústria Delta Ltda',
+                'cpf_cnpj'   => '45.612.378/0001-55',
+            ],
+            [
+                'nome'        => 'Ana Pereira',
+                'cpf_cnpj'   => '321.987.654-00',
+            ],
+            [
+                'nome'        => 'Supermercado Global S.A.',
+                'cpf_cnpj'   => '32.198.765/0001-22',
+            ],
+            [
+                'nome'        => 'Pedro Santos',
+                'cpf_cnpj'   => '741.852.963-00',
+            ],
+            [
+                'nome'        => 'Tech Solutions Ltda',
+                'cpf_cnpj'   => '741.852.963-00',
+            ],
+            [
+                'nome'        => 'Tech Solutions Ltda',
+                'cpf_cnpj'   => '74.185.296/0001-33',
+            ],
+            [
+                'nome'        => 'Mariana Costa',
+                'cpf_cnpj'   => '369.258.147-00',
+            ],
+            [
+                'nome'        => 'Construtora Beta S.A.',
+                'cpf_cnpj'   => '36.925.814/0001-44',
+            ],
+            [
+                'nome'        => 'Ricardo Almeida',
+                'cpf_cnpj'   => '852.963.741-00',
+            ],
+            [
+                'nome'        => 'Farmácia Saúde Ltda',
+                'cpf_cnpj'   => '85.296.374/0001-66',
+            ],
+            [
+                'nome'        => 'Fernanda Lima',
+                'cpf_cnpj'   => '147.258.369-00',
+            ],
+            [
+                'nome'        => 'Consultoria Financeira XYZ',
+                'cpf_cnpj'   => '14.725.836/0001-77',
+            ],
+            [
+                'nome'        => 'Gustavo Nunes',
+                'cpf_cnpj'   => '258.369.147-00',
+            ],
+            [
+                'nome'        => 'Transportadora Rápido Ltda',
+                'cpf_cnpj'   => '25.836.914/0001-88',
+            ],
+            [
+                'nome'        => 'Juliana Ferreira',
+                'cpf_cnpj'   => '963.741.852-00',
+            ],
+            [
+                'nome'        => 'Auto Peças Mecânica S.A.',
+                'cpf_cnpj'   => '96.374.185/0001-99',
+            ],
+            [
+                'nome'        => 'Bruno Rocha',
+                'cpf_cnpj'   => '753.951.852-00',
+            ],
+            [
+                'nome'        => 'Distribuidora Central Ltda',
+                'cpf_cnpj'   => '75.395.185/0001-11',
+            ],
+        ];
+        $db->table('clientes')->insertBatch($clientes);
+
+        //CRIAR TABELA DE PRODUTOS
+        $this->forge->addField([
+            'id' => ['type' => 'INT','auto_increment' => true],
+            'nome' => ['type' => 'VARCHAR', 'constraint' => 255],
+            'descricao' => ['type' => 'VARCHAR', 'constraint' => 255],
+            'preco' => ['type' => 'DECIMAL', 'constraint' => '10,2'],
+            'estoque' => ['type' => 'INT', 'default' => 0],
+        ])
+        ->addPrimaryKey('id')
+        ->createTable('produtos');
+
+        //INSERT DA TABELA DE PRODUTOS
+        $produtos = [
+            ['nome' => 'Notebook Dell', 'descricao' => 'Notebook com 16GB RAM e SSD 512GB', 'preco' => 4500.00, 'estoque' => 10],
+            ['nome' => 'Smartphone Samsung', 'descricao' => 'Celular com tela AMOLED e câmera de 108MP', 'preco' => 3200.00, 'estoque' => 15],
+            ['nome' => 'Smart TV LG 50"', 'descricao' => 'Televisão 4K com HDR e inteligência artificial', 'preco' => 2700.00, 'estoque' => 8],
+            ['nome' => 'Fone Bluetooth JBL', 'descricao' => 'Fone de ouvido sem fio com cancelamento de ruído', 'preco' => 350.00, 'estoque' => 25],
+            ['nome' => 'Teclado Mecânico Redragon', 'descricao' => 'Teclado RGB mecânico para gamers', 'preco' => 280.00, 'estoque' => 30],
+            ['nome' => 'Mouse Gamer Logitech', 'descricao' => 'Mouse sem fio com 6 botões programáveis', 'preco' => 450.00, 'estoque' => 20],
+            ['nome' => 'Monitor AOC 24"', 'descricao' => 'Monitor Full HD IPS para trabalho e jogos', 'preco' => 900.00, 'estoque' => 12],
+            ['nome' => 'Cadeira Gamer ThunderX3', 'descricao' => 'Cadeira ergonômica ajustável para conforto máximo', 'preco' => 1300.00, 'estoque' => 5],
+            ['nome' => 'HD Externo Seagate 1TB', 'descricao' => 'Armazenamento externo USB 3.0', 'preco' => 400.00, 'estoque' => 18],
+            ['nome' => 'Impressora HP DeskJet', 'descricao' => 'Impressora multifuncional com Wi-Fi', 'preco' => 700.00, 'estoque' => 9],
+            ['nome' => 'Console PlayStation 5', 'descricao' => 'Console da nova geração com SSD ultra rápido', 'preco' => 4999.00, 'estoque' => 6],
+            ['nome' => 'Controle Xbox Series X', 'descricao' => 'Controle sem fio compatível com PC e Xbox', 'preco' => 350.00, 'estoque' => 14],
+            ['nome' => 'Placa de Vídeo RTX 3060', 'descricao' => 'GPU NVIDIA com 12GB GDDR6', 'preco' => 2800.00, 'estoque' => 7],
+            ['nome' => 'SSD NVMe Kingston 1TB', 'descricao' => 'Armazenamento de alta velocidade para PC e notebook', 'preco' => 650.00, 'estoque' => 22],
+            ['nome' => 'Memória RAM 16GB DDR4', 'descricao' => 'Módulo de memória para alta performance', 'preco' => 520.00, 'estoque' => 17],
+            ['nome' => 'Fonte Corsair 750W', 'descricao' => 'Fonte modular 80 Plus Gold', 'preco' => 750.00, 'estoque' => 10],
+            ['nome' => 'Gabinete Gamer NZXT', 'descricao' => 'Gabinete com vidro temperado e iluminação RGB', 'preco' => 680.00, 'estoque' => 12],
+            ['nome' => 'Processador Ryzen 7 5800X', 'descricao' => 'CPU de alto desempenho para jogos e criação', 'preco' => 2200.00, 'estoque' => 8],
+            ['nome' => 'Placa-Mãe ASUS B550', 'descricao' => 'Placa compatível com processadores Ryzen', 'preco' => 1100.00, 'estoque' => 11],
+            ['nome' => 'Câmera GoPro Hero 9', 'descricao' => 'Câmera de ação com gravação em 5K', 'preco' => 2900.00, 'estoque' => 6],
+            ['nome' => 'Relógio Smartwatch Xiaomi', 'descricao' => 'Relógio inteligente com monitoramento de saúde', 'preco' => 480.00, 'estoque' => 15],
+            ['nome' => 'Caixa de Som JBL Charge 5', 'descricao' => 'Caixa de som Bluetooth resistente à água', 'preco' => 750.00, 'estoque' => 13]
+        ];
+        $db->table('produtos')->insertBatch($produtos);
+        
+        //CRIAR A TABELA DE PEDIDOS
+        $this->forge->addField([
+            'id' => ['type' => 'INT','auto_increment' => true],
+            'idCliente' => ['type' => 'INT'],
+            'idProduto' => ['type' => 'INT'],
+            'quantidade' => ['type' => 'INT'],
+            'data_pedido' => ['type' => 'TIMESTAMP'],
+            'status' => ['type' => 'ENUM', 'constraint' => ['Em aberto', 'Pago', 'Cancelado'], 'default' => 'Em aberto'],
+        ])
+        ->addPrimaryKey('id')
+        ->addForeignKey('idCliente', 'clientes', 'id', 'CASCADE', 'CASCADE')
+        ->addForeignKey('idProduto', 'produtos', 'id', 'CASCADE', 'CASCADE')
+        ->createTable('pedidos');
+
+        //INSERT NA TABELA DE PEDIDOS
+        $pedidos = [
+            ['idCliente' => 1, 'idProduto' => 3,  'quantidade' => 2,  'status' => 'pendente'],  
+            ['idCliente' => 2, 'idProduto' => 5,  'quantidade' => 1,  'status' => 'processando'], 
+            ['idCliente' => 3, 'idProduto' => 7,  'quantidade' => 1,  'status' => 'enviado'], 
+            ['idCliente' => 4, 'idProduto' => 10, 'quantidade' =>  4, 'status' =>  'entregue'],
+            ['idCliente' => 5, 'idProduto' => 12, 'quantidade' =>  1, 'status' =>  'cancelado']
+        ];
+        $db->table('pedidos')->insertBatch($pedidos);
+        
+    }
+
+    public function down()
+    {
+        $this->forge->dropTable('usuarios');
+        $this->forge->dropTable('clientes');
+        $this->forge->dropTable('produtos');
+        $this->forge->dropTable('pedidos');
+    }
+}
