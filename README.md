@@ -1,9 +1,74 @@
 # API Rest para cadastro de de pedidos de compra
 
-## What is CodeIgniter?
+## O que a API faz?
 
+Esta API foi desenvolvida para realizar o cadastro de pedidos de compra, nela você pode
+realizar o CRUD de seus clientes, produtos e pedidos de compra.
+
+## Requisitos para a utilização da API
+
+Para utilizar esta API é necessário que voce tenha instalado em sua máquina:
+1. PHP
+2. MySQL
+3. Composer
 CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
 More information can be found at the [official site](https://codeigniter.com).
+
+## Instalação
+
+1. Caso tenha instalado também o Git em sua máquina, você pode rodar diretamente o comando 
+`git clone https://github.com/gabriel0torres/api_rest_codeigniter.git` para clonar diretamente o repositório, caso não tenha,
+copie os arquivos do diretório e cole em um local de sua preferência.
+
+2. Nesta API é necessário a instalação de uma biblioteca para a validação do token, instale-a com o comando:
+
+`composer require firebase/php-jwt`
+
+3. Crie um arquivo `.env` e dentro dele coloque as seguinte propriedades
+contendo seus respectivos valores do seu banco de dados:
+(É necessário que o database já esteja previamente criado)
+
+*CI_ENVIRONMENT = development*
+*database.default.hostname = localhost*
+*database.default.database = teste*
+*database.default.username = root*
+*database.default.password =*
+*database.default.DBDriver = MySQLi*
+*database.default.port = 3306*
+
+4. Para a criação das tabelas fundamentais e inserção de seus dados, é disponibilizado um arquivo chamado `data-migration`
+no diretório raiz contendo o código para um migration que criaremos a seguir, e executaremos o mesmo para a inserção dos dados,
+siga as instruções:
+
+* Crie um migration chamado Inicial utilizando o comando
+`php spark make:migration Inicial`
+
+* Apague todo o conteúdo do arquivo migration criado, depois copie e cole todo o conteúdo do `data-migration` no arquivo
+migration criado.
+
+* Por último, rode a migration utilizando o comando `php spark migrate`
+
+- [x] Nossa API já está pronta para uso !
+
+## Como utilizar a API ?
+
+Será disponibilizado via anexo em email, uma collection do Postman onde teremos todos os endpoints da API prontos para uso,
+caso não queria utilizar o Postman, seguiremos a seguir com todos os enpoints da API:
+
+1. Autenticação
+
+Para utilizar todos os endpoints desta API, é necessário primeiramente fazer a autenticação, utilizando o endpoint:
+
+`localhost/api_rest_codeigniter/public/auth/login`
+
+passando o seguinte conteúdo no body da requisição:
+
+```
+{
+    "email": "admin@admin.com",
+    "senha": "1234"
+}
+```
 
 This repository holds a composer-installable app starter.
 It has been built from the
