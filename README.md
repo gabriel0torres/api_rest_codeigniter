@@ -11,8 +11,6 @@ Para utilizar esta API é necessário que voce tenha instalado em sua máquina:
 1. PHP
 2. MySQL
 3. Composer
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
 
 ## Instalação
 
@@ -59,7 +57,7 @@ migration criado.
 Será disponibilizado via anexo em email, uma collection do Postman onde teremos todos os endpoints da API prontos para uso,
 caso não queria utilizar o Postman, seguiremos a seguir com todos os enpoints da API:
 
-1. Autenticação
+### 1. Autenticação
 
 Para utilizar todos os endpoints desta API, é necessário primeiramente fazer a autenticação, utilizando o endpoint:
 
@@ -89,61 +87,98 @@ Com o token gerado, ele deverá ser incorporado a cada requisição da API no pa
 
 (Obs: este token tem duração de 1 hora, após a expiração, deve ser gerado um novo)
 
-2. Clientes
+### 2. Clientes
 
-ENPOINT BASE: ```http://localhost/api_rest_codeigniter/public/cliente```
+ENPOINT BASE: 
+
+```http://localhost/api_rest_codeigniter/public/cliente```
+
+2.1 Listando (GET)
+
+utilizando a seguinte url ```http://localhost/api_rest_codeigniter/public/cliente``` conseguimos listar os nossos clientes, lembrando que a API conta com um sistema
+de paginação de permite entregar somente 10 clientes por página, o retorno esperado deve ser:
+
+```
+{
+    "cabecalho": {
+        "status": 200,
+        "mensagem": "Dados Retornados com sucesso"
+    },
+    "retorno": {
+        "dados": [
+            {
+                "id": "1",
+                "nome": "João Silva",
+                "cpf_cnpj": "123.456.789-00"
+            },
+        ]
+    },
+    "pagination": {
+        "current_page": 1,
+        "per_page": 10,
+        "total": 23,
+        "last_page": 3,
+        "next_page": 2,
+        "prev_page": null
+    }
+}
+```
+
+2.2 Incluindo (POST)
+
+utilizando a seguinte url ```localhost/api_rest_codeigniter/public/cliente```, conseguimos incluir um novo registro de cliente passando o seguinte código de exemplo no corpo
+da requisição: 
+
+```
+{
+    "nome": "teste",
+    "cpf_cnpj": "12345678900"
+}
+```
+
+o seguinte retorno deve ser esperado:
+
+```
+{
+    "status": 201,
+    "message": "Cliente inserido com sucesso."
+}
+```
+
+2.3 Atualizando (PUT)
+
+utilizando a seguinte url ```localhost/api_rest_codeigniter/public/cliente/0``` podemos atualizar um registro, lembrando que o id do cliente deve ser colocado no lugar do 0 para
+podermos atualizar de acordo com o id do cliente, devemos passar no corpo da requisição o seguinte código contendo os campos e os valores que devem ser atualizados:
+
+```
+{
+    "cpf_cnpj": "12345678900"
+}
+```
+
+o seguinte retorno deve ser esperado:
+
+{
+    "status": 200,
+    "mensagem": "Cliente atualizado com sucesso."
+}
+
+2.4 Excluindo (DELETE)
+
+utilizando a seguinte url ```localhost/api_rest_codeigniter/public/cliente/0``` podemos excluir um registro, lembrando que o id do cliente deve ser colocado no lugar do 0 para
+podermos excluir de acordo com o id do cliente.
+
+o seguinte retorno deve ser esperado:
+
+```
+{
+    "status": 200,
+    "mensagem": "Cliente deletado com sucesso."
+}
+```
 
 
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
-
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
-
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
-
-## Installation & updates
-
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
-
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
-
-## Setup
-
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
-
-## Important Change with index.php
-
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
-
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
-
-**Please** read the user guide for a better explanation of how CI4 works!
-
-## Repository Management
-
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Server Requirements
-
-PHP version 8.1 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
 
 > [!WARNING]
 > - The end of life date for PHP 7.4 was November 28, 2022.

@@ -74,7 +74,10 @@ class Cliente extends ResourceController
         if (!$this->model->insert($data)) {
             return $this->failValidationErrors($this->model->errors());
         }
-        return $this->respondCreated(['message' => 'Cliente inserido com sucesso.']);
+        return $this->respondCreated([
+            'status' => 201,
+            'mensagem' => 'Cliente inserido com sucesso.'
+        ]);
     }
     
 
@@ -86,7 +89,9 @@ class Cliente extends ResourceController
             return $this->failNotFound('Cliente não encontrado.');
         }
         $this->model->update($id, $data);
-        return $this->respond(['message' => 'Cliente atualizado com sucesso.']);
+        return $this->respond([
+            'status' => 200,
+            'mensagem' => 'Cliente atualizado com sucesso.']);
     }
 
 
@@ -97,6 +102,8 @@ class Cliente extends ResourceController
             return $this->failNotFound('Cliente não encontrado.');
         }
         $this->model->delete($id);
-        return $this->respondDeleted(['message' => 'Cliente deletado com sucesso.']);
+        return $this->respondDeleted([
+            'status' => 200,
+            'mensagem' => 'Cliente deletado com sucesso.']);
     }
 }
